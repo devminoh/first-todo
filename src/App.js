@@ -1,23 +1,50 @@
-import logo from './logo.svg';
+import React, {useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navs from './components/Nav';
 import './App.css';
+import Todo from './Todo';
+import Home from './Home';
 
-function App() {
+const App = () => {
+
+  const initialState = JSON.parse(localStorage.getItem("todo")) || [];
+  const [input, setInput] = useState("")
+  const [todo, setTodo] = useState(initialState);
+  const [editTodo, setEditTodo] = useState(null);
+
+  useEffect(()=>{
+    localStorage.setItem("todo", JSON.stringify(todo));
+  }, [todo]);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <BrowserRouter>
+        <main className="app-wrapper">
+          <nav className="nav-wrap">
+            <Navs />
+          </nav>
+          <Routes>
+            <Route exact path = '/home' element={<Home />}></Route>
+            <Route path = '/todo' element={<Todo
+              input={input}
+              setInput={setInput}
+              todo={todo}
+              setTodo={setTodo}
+              editTodo={editTodo}
+              setEditTodo={setEditTodo} 
+            />}></Route>
+            {/* <Todo
+              input={input}
+              setInput={setInput}
+              todo={todo}
+              setTodo={setTodo}
+              editTodo={editTodo}
+              setEditTodo={setEditTodo} 
+            /> */}
+          </Routes>
+        </main>
+      </BrowserRouter>
     </div>
   );
 }
