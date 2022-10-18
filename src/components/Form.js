@@ -1,37 +1,45 @@
-import React, {useEffect} from 'react';
-import {v4 as uuidV4} from "uuid";
+import React, {useEffect, useState} from 'react';
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fetchCreate } from "../util/api";
+// import useInput from '../util/useInput';
 
-const Form = ({input, setInput, todo, setTodo, editTodo, setEditTodo, value, setValue})=>{
+const Form = ({title, setTitle, todo, editTodo, setEditTodo})=>{
+    const [completed, setCompleted] = useState(false);
+    const day = (new Date().getDate());
+    const month = (new Date().getMonth() + 1);
 
     const updateTodo = (title, id, completed, day, month)=>{
+        const data = {title, completed, day, month};
         const newTodo = todo.map((onetodo) => 
-           onetodo.id === id ? { title, id, completed, day, month } : onetodo
+           onetodo.id === id ? data : onetodo
         );
-        setTodo(newTodo);
+        fetchCreate("http://localhost:3001/todo/", newTodo)
+        // setTodo(newTodo)
         setEditTodo("");
     }
     useEffect(()=>{
         if(editTodo){
-            setInput(editTodo.title);
+            setTitle(editTodo.title);
         }else{
-            setInput("")
+            setTitle("")
         }
-    }, [setInput, editTodo]);
+    }, [setTitle, editTodo]);
 
     const onInputChange = (e)=>{
-        setInput(e.target.value);
+        setTitle(e.target.value);
     }
     const onFormSubmit = (e)=>{
         e.preventDefault();
-        if(!editTodo){
-            setTodo([...todo, {id: uuidV4(), title: input, completed: false, day: value.getDate(), month: value.getMonth() + 1}]);
-            setInput("");
-        }else{
-            updateTodo(input, editTodo.id, editTodo.completed)
-        }
+        const data = {title, completed, day, month};
+        fetchCreate("http://localhost:3001/todo/", (!editTodo) ? data :updateTodo(title, editTodo.id, editTodo.completed, editTodo.day, editTodo.month))
+        // if(!editTodo){
+        //     // setTodo([...todo, {id: uuidV4(), title: input, completed: false, day: value.getDate(), month: value.getMonth() + 1}]);
+        //     setInput("");
+        // }else{
+        //     updateTodo(input, editTodo.id, editTodo.completed)
+        // }
     }
     return (
        <form className='input-form' onSubmit={onFormSubmit}>
@@ -39,9 +47,10 @@ const Form = ({input, setInput, todo, setTodo, editTodo, setEditTodo, value, set
             type="text" 
             placeholder='할 일을 적어주세요!' 
             className='task-input'
-            value={input}
+            value={title}
             required
-            onChange={onInputChange}/>
+            onChange={onInputChange}
+            />
             <button className='button-add' type='submit'>
                 <FontAwesomeIcon icon= {editTodo ? faEdit : faPaperPlane}/>
             </button>

@@ -4,17 +4,16 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { fetchDelete } from "../util/api";
 
-const TodoList = ({todo, setTodo, setEditTodo, value, setValue})=>{
-    const handleComplete = (onetodo)=>{
-        setTodo(
+const TodoList = ({todo, setEditTodo, value})=>{
+    const handleComplete = (onetodo)=>{        
             todo.map((item) => {
                 if(item.id === onetodo.id){
                     return { ...item, completed: !item.completed};
                 }
                 return item;
-            })
-        )
+            })     
     }
 
     const handleEdit = ({id})=>{
@@ -22,8 +21,9 @@ const TodoList = ({todo, setTodo, setEditTodo, value, setValue})=>{
         setEditTodo(findTodo);
     }
 
-    const handleDelete = ({ id }) => {
-        setTodo(todo.filter((todo)=>todo.id !== id));
+    const handleDelete = ({id}) => {
+        // todo.filter((todo)=>todo.id !== id);
+        fetchDelete("http://localhost:3001/todo/", id);
     };
 
     const selectedDateData = todo.filter(

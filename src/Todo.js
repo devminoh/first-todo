@@ -4,7 +4,7 @@ import TodoList from './components/TodoList';
 import Form from './components/Form';
 //import DatePicker from './components/Date';
 
-const Todo = ({input, setInput, todo, setTodo, editTodo, setEditTodo, value, setValue})=>{
+const Todo = ({title, setTitle, todo, editTodo, setEditTodo, value, setValue})=>{
       const todayTime = ()=>{
         let now = new Date();
         let todayYear = now.getFullYear();
@@ -24,10 +24,10 @@ const Todo = ({input, setInput, todo, setTodo, editTodo, setEditTodo, value, set
             </div>
             <div>
               <Form 
-                input={input}
-                setInput={setInput}
+                title={title}
+                setTitle={setTitle}
                 todo={todo}
-                setTodo={setTodo}
+                // setTodo={setTodo}
                 editTodo={editTodo}
                 setEditTodo={setEditTodo}
                 value = {value}
@@ -37,10 +37,10 @@ const Todo = ({input, setInput, todo, setTodo, editTodo, setEditTodo, value, set
             {/* <div className='uncompleted'>할 일 {uncomplete.length} 개 남음</div> */}
             <div>
               <TodoList 
-              input={input}
-              setInput={setInput}
+              title={title}
+              setTitle={setTitle}
               todo={todo}
-              setTodo={setTodo}
+              // setTodo={setTodo}
               editTodo={editTodo}
               setEditTodo={setEditTodo}
               value = {value}

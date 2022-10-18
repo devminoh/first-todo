@@ -146,6 +146,11 @@ button:focus {
   display: flex;
   margin: 20px;
 }
+.selected-day{
+  background: #ECB365;
+  border-radius: 50%;
+  font-weight: 700;
+}
 
 /* .react-datepicker__day--selected, .react-datepicker__day--selected:hover{
   background-color: #ECB365;
