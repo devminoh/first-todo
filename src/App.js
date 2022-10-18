@@ -1,9 +1,6 @@
 import React, {useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navs from './components/Nav';
 import './App.css';
 import Todo from './Todo';
-import Home from './Home';
 
 const App = () => {
 
@@ -19,32 +16,16 @@ const App = () => {
 
   return (
     <div className="container">
-      <BrowserRouter>
         <main className="app-wrapper">
-          <nav className="nav-wrap">
-            <Navs />
-          </nav>
-          <Routes>
-            <Route exact path = '/home' element={<Home />}></Route>
-            <Route path = '/todo' element={<Todo
+            {<Todo
               input={input}
               setInput={setInput}
               todo={todo}
               setTodo={setTodo}
               editTodo={editTodo}
               setEditTodo={setEditTodo} 
-            />}></Route>
-            {/* <Todo
-              input={input}
-              setInput={setInput}
-              todo={todo}
-              setTodo={setTodo}
-              editTodo={editTodo}
-              setEditTodo={setEditTodo} 
-            /> */}
-          </Routes>
+            />}
         </main>
-      </BrowserRouter>
     </div>
   );
 }

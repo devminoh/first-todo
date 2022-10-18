@@ -2,14 +2,24 @@ import React from 'react';
 import Header from './components/Header';
 import TodoList from './components/TodoList';
 import Form from './components/Form';
-import DatePicker from './components/Date';
+//import DatePicker from './components/Date';
 
 const Todo = ({input, setInput, todo, setTodo, editTodo, setEditTodo})=>{
+      const todayTime = ()=>{
+        let now = new Date();
+        let todayYear = now.getFullYear();
+        let todayMonth = now.getMonth() + 1;
+        let todayDate = now.getDate();
+        const week = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        let dayOfWeek = week[now.getDay()];
+
+        return `${todayYear}.${todayMonth}.${todayDate} ${dayOfWeek}`;
+    }
     return (
         <div className="todo">
           <article className='todo-content'>
             <div>
-              <Header />
+              <Header todayTime={todayTime} />
             </div>
             <div>
               <Form 
@@ -32,9 +42,9 @@ const Todo = ({input, setInput, todo, setTodo, editTodo, setEditTodo})=>{
               />
             </div>
           </article>
-            <div>
+            {/* <div>
              <DatePicker />
-            </div>
+            </div> */}
         </div>
     )
 }
