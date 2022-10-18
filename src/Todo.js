@@ -15,6 +15,7 @@ const Todo = ({input, setInput, todo, setTodo, editTodo, setEditTodo})=>{
 
         return `${todayYear}.${todayMonth}.${todayDate} ${dayOfWeek}`;
     }
+    let uncomplete = todo.filter(one=> !one.completed)
     return (
         <div className="todo">
           <article className='todo-content'>
@@ -31,6 +32,7 @@ const Todo = ({input, setInput, todo, setTodo, editTodo, setEditTodo})=>{
                 setEditTodo={setEditTodo}
               />
             </div>
+            <div className='uncompleted'>할 일 {uncomplete.length} 개 남음</div>
             <div>
               <TodoList 
               input={input}
