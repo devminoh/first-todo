@@ -4,11 +4,11 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Form = ({input, setInput, todo, setTodo, editTodo, setEditTodo})=>{
+const Form = ({input, setInput, todo, setTodo, editTodo, setEditTodo, value, setValue})=>{
 
-    const updateTodo = (title, id, completed)=>{
+    const updateTodo = (title, id, completed, day, month)=>{
         const newTodo = todo.map((onetodo) => 
-           onetodo.id === id ? { title, id, completed } : onetodo
+           onetodo.id === id ? { title, id, completed, day, month } : onetodo
         );
         setTodo(newTodo);
         setEditTodo("");
@@ -27,7 +27,7 @@ const Form = ({input, setInput, todo, setTodo, editTodo, setEditTodo})=>{
     const onFormSubmit = (e)=>{
         e.preventDefault();
         if(!editTodo){
-            setTodo([...todo, {id: uuidV4(), title: input, completed: false}]);
+            setTodo([...todo, {id: uuidV4(), title: input, completed: false, day: value.getDate(), month: value.getMonth() + 1}]);
             setInput("");
         }else{
             updateTodo(input, editTodo.id, editTodo.completed)

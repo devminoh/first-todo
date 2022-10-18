@@ -6,14 +6,14 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const App = () => {
 
-  const initialState = JSON.parse(localStorage.getItem("todo")) || [];
+  const initialState = JSON.parse(localStorage.getItem("todo") || []);
   const [input, setInput] = useState("")
   const [todo, setTodo] = useState(initialState);
   const [editTodo, setEditTodo] = useState(null);
   const [value, setValue] = useState(new Date());
 
   console.log(value.getDate(), value.getMonth() + 1);
-
+  console.log(todo)
   useEffect(()=>{
     localStorage.setItem("todo", JSON.stringify(todo));
   }, [todo]);
@@ -29,6 +29,8 @@ const App = () => {
               setTodo={setTodo}
               editTodo={editTodo}
               setEditTodo={setEditTodo} 
+              value = {value}
+              setValue = {setValue}
             />}
           <article className='datepicker'> 
             <DatePicker

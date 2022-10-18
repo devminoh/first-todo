@@ -5,7 +5,7 @@ import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCircleMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const TodoList = ({todo, setTodo, setEditTodo})=>{
+const TodoList = ({todo, setTodo, setEditTodo, value, setValue})=>{
     const handleComplete = (onetodo)=>{
         setTodo(
             todo.map((item) => {
@@ -25,9 +25,14 @@ const TodoList = ({todo, setTodo, setEditTodo})=>{
     const handleDelete = ({ id }) => {
         setTodo(todo.filter((todo)=>todo.id !== id));
     };
+
+    const selectedDateData = todo.filter(
+        onetodo => onetodo.day === value.getDate() && onetodo.month === value.getMonth() + 1
+      )
+    
     return(
         <div>
-           {todo.map((todo)=>(
+           {selectedDateData.map((todo)=>(
             <li className="list-item" key={todo.id}>
                 <button className="button-complete task-button" onClick={()=> handleComplete(todo)}>
                     <FontAwesomeIcon icon={todo.completed ? faCheckCircle : faCircle} />
