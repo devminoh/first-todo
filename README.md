@@ -5,3 +5,7 @@ CRUD 완성본
 데이터피커와 데이터목록 연결
 json fetch 완료
 todo create, delete 구현 완료
+
+2022.10.19
+complted 구현완료
+

@@ -11,7 +11,7 @@ const Form = ({title, setTitle, todo, editTodo, setEditTodo})=>{
     const month = (new Date().getMonth() + 1);
 
     const updateTodo = (title, id, completed, day, month)=>{
-        const data = {title, completed, day, month};
+        const data = {title, day, month, completed};
         const newTodo = todo.map((onetodo) => 
            onetodo.id === id ? data : onetodo
         );
@@ -32,8 +32,10 @@ const Form = ({title, setTitle, todo, editTodo, setEditTodo})=>{
     }
     const onFormSubmit = (e)=>{
         e.preventDefault();
-        const data = {title, completed, day, month};
-        fetchCreate("http://localhost:3001/todo/", (!editTodo) ? data :updateTodo(title, editTodo.id, editTodo.completed, editTodo.day, editTodo.month))
+        const data = {title, day, month, completed};
+        fetchCreate("http://localhost:3001/todo/", 
+        (!editTodo) ? data :
+        updateTodo(editTodo.id, title, editTodo.day, editTodo.month, editTodo.completed))
         // if(!editTodo){
         //     // setTodo([...todo, {id: uuidV4(), title: input, completed: false, day: value.getDate(), month: value.getMonth() + 1}]);
         //     setInput("");
